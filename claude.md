@@ -800,7 +800,7 @@ def detect_{threshold_type}(
 
 ## Tips for Navigation
 
-- **All threshold functions** are in `threshold_functions.py` and follow pattern: `{action}{Direction}Threshold`
+- **All threshold functions** are in `threshold_functions.py` and follow pattern: `{action}Threshold`
 - **All indicator functions** are in `{momentum,trend,volatility,volume}_indicators.py`
 - **All search functions** are in `ml/optimizers/search.py` (gridSearch, randomSearch, bayesianSearch)
 - **Combinatorial searches** support multi-strategy optimization with AND/OR logic
