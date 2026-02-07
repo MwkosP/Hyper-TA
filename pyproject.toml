@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Hyper-TA"
+version = "0.0.21"
+description = "Automatic technical analysis framework."
+readme = "README.md"
+authors = [
+    { name = "Panagiotis Mokos", email = "12345678+MwkosP@users.noreply.github.com" }
+]
+dependencies = [
+    "yfinance>=0.2.40",
+    "matplotlib>=3.7",
+    "pandas>=1.5",
+    "finta>=1.3",
+    "deribit-api>=1.1.1",
+    "requests>=2.31",
+    "numpy>=1.26",
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    "psutil>=5.9",
+    "pycoingecko>=3.1.0",
+    "joblib",
+    "optuna",
+    "polars",
+    "pyarrow"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MwkosP"
