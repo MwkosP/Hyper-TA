@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+ENV/
+env/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# Linting & Type Checking
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# UV Package Manager
+.uv/
+# Note: uv.lock should be committed for reproducibility
+# Only uncomment the line below if you want to ignore it:
+# uv.lock
+
+# Project Specific Output Files
+*.pdf
+output/
+results/
+plots/
+
+# Images (with exceptions for repo assets)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+# Allow specific images needed for docs/branding:
+!Hyperta.png
+!docs/**/*.png
+!docs/**/*.jpg
+!assets/**/*.png
+!assets/**/*.jpg
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+.DS_Store
+~$*
+
+# Environment variables
+.env.local
+.env.*.local
