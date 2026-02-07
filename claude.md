@@ -780,6 +780,7 @@ def detect_{threshold_type}(
 2. `crossUpLineThreshold()` - Fast/slow line crossover
 3. `inRangeThreshold()` - Indicator enters range
 4. `timeThreshold()` - Condition persists N candles
+5. `mixThresholds()` - Mix Multiple Threshold logics into signals.
 
 **Search & Optimization:**
 5. `gridSearch()` - Exhaustive parameter search
