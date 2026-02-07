@@ -2,7 +2,7 @@
 import os, threading, time
 
 from src.ta.utils.helper import setup_env, kill_uvicorn_on_port, open_swagger, start_cloudflared
-setup_env() # 🛠 Ensure environment + dependencies before importing anything else
+#setup_env() # 🛠 Ensure environment + dependencies before importing anything else
 # --- Imports  AFTER setup_env ---
 import uvicorn,json
 from src.ta.functions import *

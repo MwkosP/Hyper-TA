@@ -1,15 +1,27 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
-name = "Hyper-TA"
+name = "hyper-ta"
 version = "0.0.21"
 description = "Automatic technical analysis framework."
 readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
 authors = [
     { name = "Panagiotis Mokos", email = "12345678+MwkosP@users.noreply.github.com" }
 ]
+keywords = ["technical-analysis", "trading", "quant", "hyperparameter-optimization"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.13",
+]
+
 dependencies = [
     "yfinance>=0.2.40",
     "matplotlib>=3.7",
@@ -25,8 +37,55 @@ dependencies = [
     "joblib",
     "optuna",
     "polars",
-    "pyarrow"
+    "pyarrow",
+    "plotly>=5.0.0",
+    "antropy>=0.1.6",
+    "numba>=0.58.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/MwkosP"
+Homepage = "https://github.com/MwkosP/Hyper-TA"
+Repository = "https://github.com/MwkosP/Hyper-TA"
+Issues = "https://github.com/MwkosP/Hyper-TA/issues"
+
+[project.scripts]
+hyper-ta = "main:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
