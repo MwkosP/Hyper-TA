@@ -29,10 +29,8 @@ jobs:
         run: uv sync --extra dev
 
       - name: Run tests
-        # We use 'python -m pytest' instead of just 'pytest'
-        run: uv run python -m pytest --cov=ta --cov-report=xml
-        env:
-          PYTHONPATH: .
+        # Since your pyproject says name="ta", we run coverage on 'ta'
+        run: uv run pytest --cov=ta --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
