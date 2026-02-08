@@ -6,8 +6,7 @@
 
 
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
-[![CI](https://github.com/MwkosP/Hyper-TA/actions/workflows/github_workflows_ci.yaml/badge.svg)](https://github.com/MwkosP/Hyper-TA/actions)
-[![Codecov](https://codecov.io/gh/MwkosP/Hyper-TA/branch/main/graph/badge.svg)](https://codecov.io/gh/MwkosP/Hyper-TA)
+[![CI](https://github.com/MwkosP/Hyper-TA/actions/workflows/ci.yaml/badge.svg)](https://github.com/MwkosP/Hyper-TA/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
@@ -123,7 +122,7 @@ search_config = {
 3. **Bayesian Optimization** - Probabilistic guided search for optimal parameters
 4. More to be added...
 
-![Search Visualization](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/search.webp)
+![Search Visualization](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/search.png)
 
 ---
 
@@ -285,6 +284,9 @@ Contributions welcome! Please open an issue or submit a PR.
 ## ⚠️ Disclaimer
 
 This software is for **research and educational purposes only**. It is not financial advice. Trading involves substantial risk of loss. Always do your own research and consult with a qualified financial advisor before making investment decisions.
+
+
+
 
 
 

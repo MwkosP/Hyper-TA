@@ -15,6 +15,9 @@ import matplotlib.pyplot as plt
 import gc
 import json
 
+from tqdm.auto import tqdm # auto-selects notebook or terminal style
+
+
 # === CRITICAL IMPORT ===
 from src.ta.functions.indicators.universal_threshold_dispatcher import run_threshold
 
@@ -290,48 +293,59 @@ def combinatorialBayesianSearch(df, search_spaces_list, n_iter=100, mode="and"):
 # ============================================================
 # Plotting (Robust + Downsampling)
 # ============================================================
-def plot_results_pdf(df, results, pdf_name="all_plots.pdf", top_n=None, signal_range=None):
-    if isinstance(results, dict): results = [results]
+def plot_results_pdf(df, results, pdf_name="plots.pdf", top_n=None):
+    if isinstance(results, dict):
+        results = [results]
     
-    results = sorted(results, key=lambda x: x.get("score", 0), reverse=True)
-    if top_n: results = results[:top_n]
-
-    print(f"📄 PDF Gen: {pdf_name} ({len(results)} UNIQUE strategies)...", flush=True)
-
-    plot_df = df.copy()
-    if len(plot_df) > 2000:
-        plot_df = plot_df.iloc[::(len(plot_df)//2000)]
+    results = sorted([r for r in results if r.get("score", 0) > 0], 
+                    key=lambda x: x.get("score", 0), reverse=True)
+    if top_n:
+        results = results[:top_n]
     
+    if not results:
+        return
+
+    # Downsample once outside the loop
+    plot_df = df.iloc[::max(1, len(df)//2000)].copy()
+    
+    stats = {'successful': 0, 'failed': 0}
+
     with PdfPages(pdf_name) as pdf:
-        for i, r in enumerate(results):
+        # Single bar configuration
+        pbar = tqdm(results, desc="Generating PDF", unit="plot", ncols=80)
+        
+        for i, r in enumerate(pbar):
             try:
-                if r.get("score", 0) <= 0: continue
-
                 signals = r.get("signals_df", pd.DataFrame())
                 if signals.empty and "config" in r:
-                     signals = run_threshold(df, r["config"])
-
-                if signals.empty or "Date" not in signals.columns: continue
-
-                title = f"Score: {r['score']}"
-                if "combination" in r:
-                    title += f" | Combo of {len(r['combination'])}"
-
-                plt.figure(figsize=(14, 6))
-                plt.plot(plot_df["Date"], plot_df["close"], color="black", alpha=0.6, lw=0.8)
+                    signals = run_threshold(df, r["config"])
                 
+                if signals.empty:
+                    continue
+                
+                # UPDATE BAR IN PLACE (No extra prints)
+                pbar.set_postfix(score=f"{r.get('score', 0):.2f}", ok=stats['successful'])
+                
+                fig, ax = plt.subplots(figsize=(14, 6))
+                ax.plot(plot_df["Date"], plot_df["close"], color="black", alpha=0.6, lw=0.8)
+                
+                # Downsample signals for plotting
                 sig_points = df[df["Date"].isin(signals["Date"])]
-                if len(sig_points) > 1000: sig_points = sig_points.iloc[::(len(sig_points)//1000)]
-                plt.scatter(sig_points["Date"], sig_points["close"], color="green", s=40, zorder=5)
+                sig_points = sig_points.iloc[::max(1, len(sig_points)//1000)]
                 
-                plt.title(title, fontsize=10)
-                plt.grid(True, alpha=0.3)
+                ax.scatter(sig_points["Date"], sig_points["close"], color="green", s=40)
+                ax.set_title(f"Rank #{i+1} | Score: {r['score']:.4f}")
                 
-                pdf.savefig()
-                plt.close()
-                gc.collect()
-                print(f" ✅ Plot {i+1} Done", flush=True)
+                pdf.savefig(fig, dpi=100)
+                plt.close(fig)
+                
+                stats['successful'] += 1
+                if i % 10 == 0: gc.collect()
+                
+            except Exception:
+                stats['failed'] += 1
+                # Use pbar.write ONLY if you absolutely need to see the error 
+                # without breaking the bar. Otherwise, skip it for maximum cleanliness.
+                continue
 
-            except Exception as e:
-                print(f" ❌ Error on {i+1}: {e}", flush=True)
-                plt.close()
+    print(f"\nDone! {stats['successful']} plots saved to {pdf_name}")
