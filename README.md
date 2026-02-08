@@ -1,9 +1,15 @@
-![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/Hyperta.png)
+![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/Hyperta.png)
 
 # HyperTA - Technical Analysis Signal Generator & Hyperparameter Optimization Framework
 
-[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.13-blue?logo=python)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+
+
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
+[![CI](https://github.com/MwkosP/Hyper-TA/actions/workflows/github_workflows_ci.yaml/badge.svg)](https://github.com/MwkosP/Hyper-TA/actions)
+[![Codecov](https://codecov.io/gh/MwkosP/Hyper-TA/branch/main/graph/badge.svg)](https://codecov.io/gh/MwkosP/Hyper-TA)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 A production-ready technical analysis framework for quantitative trading research with advanced hyperparameter optimization capabilities.
 
@@ -29,24 +35,13 @@ Built for **quantitative researchers**, **algorithmic traders**, and **strategy 
 ##  Technical Indicators
 
 ### Momentum / Oscillators
-- **RSI** (Relative Strength Index)
-- **StochRSI** (Stochastic RSI)
-- **ROC** (Rate of Change)
-- **Williams %R**
-- **ADX** (Average Directional Index)
-- **MACD** (Moving Average Convergence Divergence)
-
+- **RSI**, **StochRSI**, **ROC**, **Williams %R**, **ADX**, **MACD**
+- 
 ### Trend Indicators
-- **MA** (Moving Averages - SMA, WMA)
-- **EMA** (Exponential Moving Average)
-- **EMA Ribbon** (Multi-period EMA visualization)
-- **EMA Crossover** (Fast/Slow crossover signals)
-- **Ichimoku Cloud** (Full suite)
+- **MA**, **EMA**, **EMA Ribbon**, **EMA Crossover**, **Ichimoku Cloud** 
 
 ### Volatility / Range Indicators
-- **Bollinger Bands**
-- **ATR** (Average True Range)
-- **Donchian Channels**
+- **Bollinger Bands**, **ATR**, **Donchian Channels**
 
 ---
 
@@ -54,7 +49,7 @@ Built for **quantitative researchers**, **algorithmic traders**, and **strategy 
 
 ### Threshold Detection Types
 
-The framework supports 4 distinct signal trigger mechanisms:
+The framework supports distinct signal Threshold trigger mechanisms:
 
 #### 1. `crossUpThreshold`
 Detects when an indicator crosses **above** a fixed numeric level.
@@ -106,7 +101,7 @@ Requires an indicator to stay **above/below a level for N consecutive candles**.
 
 ### Multi-Dimensional Search Spaces
 
-Define parameter ranges to explore all combinations:
+Define parameter ranges to explore all(or most - depending on search algorithm) combinations:
 
 ```python
 search_config = {
@@ -126,8 +121,9 @@ search_config = {
 1. **Grid Search** - Exhaustive exploration of all parameter combinations
 2. **Random Search** - Stochastic sampling for faster iteration
 3. **Bayesian Optimization** - Probabilistic guided search for optimal parameters
+4. More to be added...
 
-![Search Visualization](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/search.webp)
+![Search Visualization](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/search.webp)
 
 ---
 
@@ -168,7 +164,7 @@ strategy = mixThresholds([
 
 This creates **extremely powerful composite signals** that combine multiple technical perspectives.
 
-![Signal Generation](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/signals.png)
+![Signal Generation](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/signals.png)
 
 ---
 
@@ -228,7 +224,7 @@ app.py
 7. **Visualization** → Auto-generate PDF charts for each configuration
 8. **Model Training** *(Coming Soon)* → Train ML models on best signal sets
 
-![Workflow Diagram](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/image.png)
+![Workflow Diagram](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/image.png)
 
 ---
 
@@ -243,6 +239,22 @@ app.py
 
 ---
 
+## Quick Start
+```bash
+# 1. Install uv (if you havent)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 2. Clone and setup
+git clone https://github.com/MwkosP/Hyper-TA.git
+cd Hyper-TA
+uv sync
+
+# 3. Run
+uv run python main.py
+```
+
+That's it!
+---
 ##  Roadmap
 
 - [x] Core threshold detection engine
@@ -273,4 +285,13 @@ Contributions welcome! Please open an issue or submit a PR.
 ## ⚠️ Disclaimer
 
 This software is for **research and educational purposes only**. It is not financial advice. Trading involves substantial risk of loss. Always do your own research and consult with a qualified financial advisor before making investment decisions.
+
+
+
+
+
+
+
+
+
 

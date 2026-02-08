@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hyper-ta"
-version = "0.0.21"
+name = "ta"
+version = "0.0.22"
 description = "Automatic technical analysis framework."
 readme = "README.md"
 requires-python = ">=3.10"
