@@ -41,6 +41,7 @@ dependencies = [
     "plotly>=5.0.0",
     "antropy>=0.1.6",
     "numba>=0.58.0",
+    "typer>=0.21.1",
 ]
 
 [project.optional-dependencies]
@@ -58,7 +59,7 @@ Repository = "https://github.com/MwkosP/Hyper-TA"
 Issues = "https://github.com/MwkosP/Hyper-TA/issues"
 
 [project.scripts]
-hyper-ta = "main:main"
+ta = "cli:app"
 
 [dependency-groups]
 dev = [
@@ -90,6 +91,3 @@ warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
 
-[tool.pytest.ini_options]
-pythonpath = ["."]
-testpaths = ["tests"]
