@@ -14,7 +14,7 @@ end="2026-02-01"
 tmfrm='1d' #1d 1wk
 
 #Download Set
-df = download_underlying_stock(title=underlying_stock,start=start,end=end,tmfrm="1d",plot=False)
+df = fetch_asset(title=underlying_stock,start=start,end=end,tmfrm="1d",plot=False)
 
 
 

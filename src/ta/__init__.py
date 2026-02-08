@@ -9,6 +9,6 @@ from .strategies import *
 
 
 # Flattened access for your main functions
-from .functions import *
-from .data import download_underlying_stock
-from .utils.helper import setup_env
+#from .functions import *
+#from .data import fetch_asset
+#from .utils.helper import setup_env

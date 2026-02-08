@@ -3,7 +3,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def download_underlying_stock(title: str, start: str, end: str, tmfrm: str, plot: bool = False) -> pd.DataFrame:
+def fetch_asset(title: str, start: str, end: str, tmfrm: str, plot: bool = False) -> pd.DataFrame:
     up = yf.download(title, start=start, end=end, interval=tmfrm, auto_adjust=True)
 
     # flatten column names if needed
