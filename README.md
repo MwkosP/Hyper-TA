@@ -35,7 +35,7 @@ Built for **quantitative researchers**, **algorithmic traders**, and **strategy 
 
 ### Momentum / Oscillators
 - **RSI**, **StochRSI**, **ROC**, **Williams %R**, **ADX**, **MACD**
-- 
+
 ### Trend Indicators
 - **MA**, **EMA**, **EMA Ribbon**, **EMA Crossover**, **Ichimoku Cloud** 
 
