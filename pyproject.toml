@@ -45,6 +45,7 @@ dependencies = [
     "ccxt>=4.5.36",
     "typer-ui>=0.1.2",
     "pdoc>=16.0.0",
+    "vectorbt>=0.28.2",
 ]
 
 [project.optional-dependencies]

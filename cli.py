@@ -28,7 +28,7 @@ console = Console()
 @app.callback()
 def callback():
     """
-    Hyper-TA Command Line Interface
+    Hyper-TA Command Line Interface(CLI)
     """
     pass
 #?==============================================================

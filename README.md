@@ -215,8 +215,17 @@ app.py
 7. **Visualization** → Auto-generate PDF charts for each configuration
 8. **Model Training** *(Coming Soon)* → Train ML models on best signal sets
 
-![Workflow Diagram](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/image.png)
-
+```bash
+1. INDICATORS (RSI, MACD, etc.)
+         ↓
+2. THRESHOLD LOGIC (crossUp, inRange, etc.)
+         ↓
+3. mixThresholds() → GENERATES SIGNALS
+         ↓
+4. SEARCH ALGORITHMS (Grid/Random/Bayesian) ← ALREADY BUILT-IN!
+         ↓
+5. BACKTESTING ← YOU ONLY NEED THIS PART!
+```
 ---
 
 ##  Use Cases
@@ -276,6 +285,8 @@ Contributions welcome! Please open an issue or submit a PR.
 ## ⚠️ Disclaimer
 
 This software is for **research and educational purposes only**. It is not financial advice. Trading involves substantial risk of loss. Always do your own research and consult with a qualified financial advisor before making investment decisions.
+
+
 
 
 
