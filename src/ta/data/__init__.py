@@ -1,1 +1,1 @@
-from . import fetch_yfinance
+from .fetch_yfinance import *

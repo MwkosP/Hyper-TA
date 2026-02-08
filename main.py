@@ -1,41 +1,12 @@
-# === External libraries ===
-import os, threading, time
-
-from src.ta.utils.helper import setup_env, kill_uvicorn_on_port, open_swagger, start_cloudflared
-#setup_env() # 🛠 Ensure environment + dependencies before importing anything else
-# --- Imports  AFTER setup_env ---
-import uvicorn,json
-from src.ta.functions import *
-from src.ta.tests.general import *
-#########
-from src.ta.functions.indicators.universal_threshold_dispatcher  import *
-from src.ta.functions.indicators.universal_indicator_dispatcher import *
-from src.ta.functions.indicators.threshold_functions import *
-from src.ta.functions.plots import *
-from src.ta.functions.plots.plot_dynamic_thresholds import *
-from src.ta.ml.optimizers.search import *
-
-from src.ta.data.fetch_yfinance import download_underlying_stock
-from src.ta.ml.optimizers.search import *
+#=====================IMPORTS========================
+import os, threading, time, uvicorn, json, pandas as pd,numpy
 import matplotlib.pyplot as plt
-from src.ta.ml.optimizers.searchSpaces import *
 from pprint import pprint
-from src.ta.functions.plots.plot_weekends import *
-from src.ta.functions.metrics.universal_metrics_dispatcher import *
-from src.ta.functions.metrics.entropy import *
+from src.ta import * # The "Single Line" for your library - # Now you access everything via or without the 'ta' namespace: # ta.download_underlying_stock() - or just download_underlying_stock() 
 
-#DB specific
-from src.ta.db.market_db import *
-import src.ta.db.market_db as taDB
-
-
-
-
-# Set to None to show ALL rows
-pd.set_option('display.max_rows', None)
-
-# Set to None to show ALL columns
-pd.set_option('display.max_columns', None)
+#=====================CONFIGS========================
+pd.set_option('display.max_rows', None) # Set to None to show ALL rows
+pd.set_option('display.max_columns', None) # Set to None to show ALL columns
 
 underlying_stock = "BTC-USD" #TAO22974-USD
 start="2024-01-01"
