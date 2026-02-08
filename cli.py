@@ -10,6 +10,9 @@ import importlib
 import pkgutil
 import inspect
 import ccxt
+import time
+from typer_ui import TyperUI
+
 import src.ta as ta   # Import your package
 
 
@@ -37,13 +40,56 @@ def callback():
 
 
 @app.command()
-def docs():
+def github():
     """
-    Open the official Hyper-TA documentation in your browser.
+    Open the official Hyper-TA Github Website in your browser.
     """
     url = "https://github.com/MwkosP/Hyper-TA/blob/main/README.md"
     console.print(f"📖 [bold]Opening documentation:[/bold] {url}")
     webbrowser.open(url)
+#?==============================================================
+#?==============================================================
+@app.command()
+def docs():
+    """
+    Open technical documentation for the 'ta' Library.
+    """
+    import webbrowser
+    import threading
+    import time
+
+    # Use a fixed port or your preferred logic
+    port = 8080
+    url = f"http://localhost:{port}/ta.html"
+
+    # Define a small function to open the browser after a short delay
+    # This gives the server time to start up.
+    def open_browser():
+        time.sleep(1.5)  # Wait for server to initialize
+        webbrowser.open(url)
+
+    console.print(f"🛠️  [bold green]Generating API Documentation...[/bold green]")
+    console.print(f"📖 [cyan]Opening browser at {url}[/cyan]")
+
+    # Start the browser-opener in a separate thread
+    threading.Thread(target=open_browser, daemon=True).start()
+
+    # Run pdoc server
+    try:
+        # Set PYTHONPATH so pdoc finds your 'src' folder
+        env = os.environ.copy()
+        env["PYTHONPATH"] = f"src{os.pathsep}{env.get('PYTHONPATH', '')}"
+        
+        # Execute pdoc without the --browse flag
+        subprocess.run([
+            sys.executable, "-m", "pdoc", 
+            "ta", 
+            "--port", str(port)
+        ], env=env)
+    except KeyboardInterrupt:
+        console.print("\n🛑 Documentation server closed.")
+
+
 #?==============================================================
 #?==============================================================
 
@@ -175,6 +221,56 @@ def fetch(
 
 #?==============================================================
 #?==============================================================
+'''
+@app.command()
+def logs(
+    lines: int = typer.Option(10, "--lines", "-n", help="Number of last lines to show"),
+    follow: bool = typer.Option(False, "--follow", "-f", help="Follow log output in real-time")
+):
+    """
+    View and monitor project logs.
+    """
+    log_file = "src.ta.log" # Or wherever your logger saves files
+
+    if not os.path.exists(log_file):
+        console.print(f"[bold red]Error:[/bold red] Log file '{log_file}' not found.")
+        return
+
+    def print_logs(count):
+        with open(log_file, "r") as f:
+            # Get the last N lines
+            content = f.readlines()
+            last_lines = content[-count:]
+            for line in last_lines:
+                # Basic color coding for log levels
+                if "ERROR" in line:
+                    console.print(f"[red]{line.strip()}[/red]")
+                elif "INFO" in line:
+                    console.print(f"[cyan]{line.strip()}[/cyan]")
+                else:
+                    console.print(line.strip())
+
+    console.print(f"📄 [bold]Showing last {lines} lines of {log_file}:[/bold]\n")
+    print_logs(lines)
+
+    if follow:
+        console.print("\n👀 [yellow]Watching for new entries... (Ctrl+C to stop)[/yellow]")
+        try:
+            with open(log_file, "r") as f:
+                f.seek(0, 2)  # Go to end of file
+                while True:
+                    line = f.readline()
+                    if not line:
+                        time.sleep(0.1)
+                        continue
+                    console.print(line.strip())
+        except KeyboardInterrupt:
+            console.print("\nStopped watching logs.")
+'''
+
+
+#?==============================================================
+#?==============================================================
 
 
 
@@ -217,8 +313,9 @@ THRESHOLD_REGISTRY = {
     "crossUpThreshold": { "desc": "Triggers when crosses specified price."},
     "crossUpLineThreshold": { "desc": "Triggers when crosses specified Line."},
     "inRangeThreshold": { "desc": "Triggers when enters specified range."},
-    "timeThreshold": { "desc": "Triggers when stays >= than specified time."}
-}
+    "timeThreshold": { "desc": "Triggers when stays >= than specified time."},
+    "mixThresholds": { "desc": "Combines Multiple Thresholds Logic/Signals into new Signals."},
+}    
 
 @app.command(name="list-thresholds")
 def list_thresholds():

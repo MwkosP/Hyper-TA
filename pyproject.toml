@@ -43,6 +43,8 @@ dependencies = [
     "numba>=0.58.0",
     "typer>=0.21.1",
     "ccxt>=4.5.36",
+    "typer-ui>=0.1.2",
+    "pdoc>=16.0.0",
 ]
 
 [project.optional-dependencies]

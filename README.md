@@ -29,6 +29,8 @@ HyperTA is a comprehensive **signal generation engine** for technical analysis t
 
 Built for **quantitative researchers**, **algorithmic traders**, and **strategy developers**.
 
+This Library uses UV package manager to turn runtimes 10-100x times faster than with normal pip runtimes. 
+
 ---
 
 ##  Technical Indicators
@@ -143,22 +145,7 @@ The core innovation - **composite signal generation** via set logic:
 ### Example: Multi-Indicator Strategy
 
 ```python
-strategy = mixThresholds([
-    {
-        "logic": "AND",
-        "conditions": [
-            {"indicator": "rsi", "threshold": 30, "type": "crossUpThreshold"},
-            {"indicator": "macd", "type": "crossUpLineThreshold"}
-        ]
-    },
-    {
-        "logic": "OR",
-        "conditions": [
-            {"indicator": "bbands", "type": "inRangeThreshold"},
-            {"indicator": "stochrsi", "threshold": 20}
-        ]
-    }
-])
+strategy = mixThresholds(price,[searchconfig[0],searchconfig[1]], search="bayesian",mode="and" )
 ```
 
 This creates **extremely powerful composite signals** that combine multiple technical perspectives.
@@ -198,20 +185,25 @@ app.py
 ##  Tech Stack
 
 **Core Libraries:(Optimization,ML/AI,Backend)**
-- `numpy` - Numerical computing
-- `pandas` - Data manipulation
-- `matplotlib` / `plotly` - Visualization
-- `yfinance` - Market data retrieval
-- `scikit-learn` - ML utilities
-- `optuna` - Hyperparameter optimization
-- `scipy` - Scientific computing
-- `tensorflow` / `pytorch` - Deep learning
-- `FastAPI` - REST API (optional)
-- `SQLite` - Data persistence
+- `numpy`, `pandas`, `matplotlib`, `plotly`, `yfinance`, `finta`, `scikit-learn`, `optuna`, `scipy`, `tensorflow` / `pytorch`, `FastAPI`, `SQLite`, `joblib`, `typer`, 
 - And many more..
 
 ---
-
+## With CLI support
+```bash
+╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ docs             Open the official Hyper-TA documentation in your browser.                                           │
+│ guide            Display a quick-start guide for Threshold and Mixed strategies.                                     │
+│ test             Run the project test suite using pytest.                                                            │
+│ health           Check the system health and project environment.                                                    │
+│ version          Display the current version of Hyper-TA.                                                            │
+│ fetch            Fetch the current live price for a specific ticker.                                                 │
+│ list-functions   List all functions within the ta package.                                                           │
+│ list-thresholds  List all available Threshold and Mixed Threshold strategies.                                        │
+│ list-strategies  List all specific Threshold and Mixed Threshold strategy types.                                     │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+---
 ##  Workflow
 
 1. **Data Ingestion** → Fetch historical data from Yahoo Finance / custom sources
@@ -284,6 +276,9 @@ Contributions welcome! Please open an issue or submit a PR.
 ## ⚠️ Disclaimer
 
 This software is for **research and educational purposes only**. It is not financial advice. Trading involves substantial risk of loss. Always do your own research and consult with a qualified financial advisor before making investment decisions.
+
+
+
 
 
 
