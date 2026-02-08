@@ -293,7 +293,7 @@ def combinatorialBayesianSearch(df, search_spaces_list, n_iter=100, mode="and"):
 # ============================================================
 # Plotting (Robust + Downsampling)
 # ============================================================
-def plot_results_pdf(df, results, pdf_name="plots.pdf", top_n=None):
+def plot_signals_pdf(df, results, pdf_name="plots.pdf", top_n=None):
     if isinstance(results, dict):
         results = [results]
     

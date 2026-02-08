@@ -2,6 +2,7 @@
 import os, threading, time, uvicorn, json, pandas as pd,matplotlib.pyplot as plt,numpy
 from pprint import pprint
 from src.ta import * # The "Single Line" for your library - # Now you access everything via or without the 'ta' namespace: # ta.download_underlying_stock() - or just download_underlying_stock() 
+from configs.searchSpaces import *
 
 #=====================CONFIGS========================
 pd.set_option('display.max_rows', None) # Set to None to show ALL rows
@@ -27,9 +28,9 @@ def main():
 
     # Generate composite signals
     signals = mixThresholds(df, [irtBUY[1],ttBUY[7]], search="bayesian",mode="and")
-    print(signals)
+    #print(signals)
 
-    plot_results_pdf(df, signals, pdf_name="assets/data/plots.pdf", top_n=None)
+    plot_signals_pdf(df, signals, pdf_name="assets/data/plots.pdf", top_n=None)
 
 
 
