@@ -42,6 +42,7 @@ dependencies = [
     "antropy>=0.1.6",
     "numba>=0.58.0",
     "typer>=0.21.1",
+    "ccxt>=4.5.36",
 ]
 
 [project.optional-dependencies]
