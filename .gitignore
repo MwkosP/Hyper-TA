@@ -78,7 +78,7 @@ Desktop.ini
 *.pdf
 output/
 results/
-plots/
+
 
 # Images (with exceptions for repo assets)
 *.png

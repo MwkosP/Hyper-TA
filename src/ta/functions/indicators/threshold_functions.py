@@ -210,18 +210,28 @@ def timeThreshold(df,type,period,level,direction="above",min_candles=3,wd=0,**kw
 
 
 
-
 #? ==========================================================================================================
 #? DYNAMIC THRESHOLDS
 #? ==========================================================================================================
 
 
 #-----------------------
-# Stdv Threshold EMA
+# Stdv Bands Threshold 
 #-----------------------
 import numpy as np
 import pandas as pd
-def stdvThresholdEMA(df, ema_period=10, window=50, sigma=0.8, wd=0):
+def stdvBandsThreshold(df, ema_period=10, window=50, sigma=0.8, wd=0):
+    """
+    Detects when an indicator is above/below a stdv Band Threshold
+    
+
+    Parameters:
+
+
+    Returns:
+        s_above, s_below
+    """
+        
     df_temp = df.copy()
     
     # 1. Calculate the Baseline (EMA)
@@ -263,25 +273,34 @@ def stdvThresholdEMA(df, ema_period=10, window=50, sigma=0.8, wd=0):
 
 
 
-#Kurtosis Threshold
+
+
+
+
+
+#-----------------------
+#Kurtosis Threshold 
+#-----------------------
 def kurtosisThreshold(df, window=20, k_range=(-2.0, 1.0), label="trigger_active"):
     """
     Calculates kurtosis for each day individually using a rolling window 
-    and returns dates falling within the specified range.
+    and returns dates falling within the specified range of price calculated.
     """
     # 1. Prepare the data
     df_temp = df.copy()
     # Handle the capitalization inconsistency often found in yfinance
-    if 'Close' in df_temp.columns:
-        df_temp['close'] = df_temp['Close']
+    if 'close' in df_temp.columns:
+        df_temp['close'] = df_temp['close']
     
     # 2. Calculation Logic (Individual daily calculation)
     # This generates a unique value for every row
-    df_temp['returns'] = df_temp['close'].pct_change()
+    
+    df_temp['returns'] = np.log(df_temp['close'] / df_temp['close'].shift(1))
+    
     df_temp['kurt'] = df_temp['returns'].rolling(window=window).kurt()
     
     # 3. Apply the Range Filter
-    # This captures the 'Thin-Tailed' (-2) to 'Normal' (1) regime you requested
+    # This captures the specified k_range.
     is_in_range = (df_temp['kurt'] >= k_range[0]) & (df_temp['kurt'] <= k_range[1])
     
     # 4. Extract results
@@ -298,26 +317,166 @@ def kurtosisThreshold(df, window=20, k_range=(-2.0, 1.0), label="trigger_active"
 
 
 
-def run_kurtosis_delta_strategy(df, ema_p=20, sig=1.5, k_win=50, delta_k=0.5,n=5):
+
+
+
+
+#-----------------------
+#Skewness Threshold 
+#-----------------------
+def skewThreshold(df, window=20, s_range=(-2.0, 1.0), label="trigger_active"):
+    """
+    Calculates Skew for each day individually using a rolling window 
+    and returns dates falling within the specified range.
+    """
+    # 1. Prepare the data
+    df_temp = df.copy()
+    # Handle the capitalization inconsistency often found in yfinance
+    if 'close' in df_temp.columns:
+        df_temp['close'] = df_temp['close']
+    
+    # 2. Calculation Logic (Individual daily calculation)
+    # This generates a unique value for every row
+    
+    df_temp['returns'] = np.log(df_temp['close'] / df_temp['close'].shift(1))
+    
+    df_temp['skew'] = df_temp['returns'].rolling(window=window).skew()
+    
+    # 3. Apply the Range Filter
+    is_in_range = (df_temp['skew'] >= s_range[0]) & (df_temp['skew'] <= s_range[1])
+    
+    # 4. Extract results
+    # We ensure "Date" is available (resetting index if necessary)
+    if 'Date' not in df_temp.columns:
+        df_temp = df_temp.reset_index()
+        
+    signals = df_temp.loc[is_in_range, ["Date", "close", "skew"]].copy()
+    signals["signal"] = label
+    
+    return signals
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----------------------
+#Stdv Kurtosis Threshold 
+#-----------------------
+def stdvKurtosisThreshold(df, ema_p=20, window=20, sig=1.5, k_win=50, delta_k=0.5,n=5):
+    """
+    gets stdvBandsThreshold signals and also checks if kurtosis is within a
+    specifiedrange and also if it is cooling down(the rate of drop) 
+    returns dates of those specific signals.
+    """
+   
     # 1. Use your existing stdvThresholdEMA for the bands
     # This gives us the price 'stretches'
-    s_above, s_below = stdvThresholdEMA(df, ema_period=ema_p, window=50, sigma=sig)
+    s_above, s_below = stdvBandsThreshold(df, ema_period=ema_p, window=window, sigma=sig)
 
     # 2. Use your existing kurtosisThreshold for the raw kurtosis data
     # We set a wide range so we get all the data points for calculation
-    k_data = kurtosisThreshold(df, window=k_win, k_range=(-10, 10))
+    k_data = kurtosisThreshold(df, window=k_win, k_range=(-10, 10))  #get all Kurtosis prices
 
     # 3. Apply the Image Logic (Delta K)
     # K(t) < K(t-1)
-    k_data['cooling'] = k_data['kurt'] < k_data['kurt'].shift(1)
+    #WE SAW WE MIGHT NOT NEED IT FOR NOW
     
     # K(t-n) - K(t) > ΔK (using n=5)
     k_data['drop'] = (k_data['kurt'].shift(n) - k_data['kurt']) > delta_k
 
     # 4. Filter the Sigma signals by these new Delta conditions
-    valid_kurt_dates = k_data[k_data['cooling'] & k_data['drop']]['Date']
+    valid_kurt_dates = k_data[ k_data['drop']]['Date']
     
     final_buys = s_below[s_below['Date'].isin(valid_kurt_dates)]
     final_sells = s_above[s_above['Date'].isin(valid_kurt_dates)]
 
     return final_buys, final_sells
+
+
+
+
+
+
+
+
+
+
+
+#----------------
+# Derivative Threshold 
+#----------------
+from src.ta.functions.metrics.derivatives import *
+def derivativeThreshold(df,k=40,alpha=1.0,derivatives="first",lower=-0.001,upper=0.001,lower2=-0.001,upper2=0.001,wd=0,scale=True):
+    """
+    Range-based derivative threshold.
+
+    Detects when derivative values are inside given bounds.
+    """
+
+    # === 1. Compute derivatives
+    ind_df = rolling_derivative(df=df,k=k,alpha=alpha,scale=scale,derivative= derivatives)
+
+    cols = [c for c in ind_df.columns if c != "Date"]
+
+    # === 2. Build condition
+    if derivatives == "first":
+        col = cols[0]
+        cond = (ind_df[col] >= lower) & (ind_df[col] <= upper)
+
+    elif derivatives == "second":
+        col = cols[0]
+        cond = (ind_df[col] >= lower) & (ind_df[col] <= upper)
+
+    elif derivatives == "both":
+        first_col = [c for c in cols if "First" in c][0]
+        second_col = [c for c in cols if "Second" in c][0]
+
+        cond1 = (ind_df[first_col] >= lower) & (ind_df[first_col] <= upper)
+        cond2 = (ind_df[second_col] >= lower2) & (ind_df[second_col] <= upper2)
+
+        cond = cond1 & cond2
+
+    else:
+        raise ValueError("derivative must be 'first', 'second', or 'both'")
+
+    # === 3. Create signal (Χρησιμοποίησε np.nan αντί για "")
+    ind_df["signal"] = np.nan
+    ind_df.loc[cond, "signal"] = df.loc[cond, "close"]
+
+    # Κράτα μόνο τις σειρές που έχουν σήμα
+    signals = ind_df.dropna(subset=["signal"])[["Date", "signal"]].copy()
+
+    # === 4. Cluster filtering (Διόρθωση για ενδοημερήσια δεδομένα)
+    if wd > 0 and not signals.empty:
+        # Αντί για days, υπολόγισε τη διαφορά σε δευτερόλεπτα ή απλά σε θέσεις (index)
+        signals["diff"] = signals["Date"].diff().dt.total_seconds() 
+        # wd σε δευτερόλεπτα (π.χ. αν wd=10 και είσαι σε 1h κεριά, βάλε 10*3600)
+        signals = signals[(signals["diff"].isna()) | (signals["diff"] > wd * 3600)]
+        signals = signals.drop(columns="diff")
+
+    return signals
+
+
+
+
+
+
+
+
+
+
+#-----------------------
+#Entropy Threshold 
+#-----------------------
+
+

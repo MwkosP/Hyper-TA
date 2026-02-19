@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def calculate_entropy(df, column='close', bins=10):
+def calculate_entropy(df, column='close', bins=10,alpha=0.5):
     data = df[column].dropna()
     
     # 1. Όρια κάδων
@@ -12,13 +12,16 @@ def calculate_entropy(df, column='close', bins=10):
     # 2. Κατηγοριοποίηση και Πιθανότητες
     bin_series = pd.cut(data, bins=custom_bins)
     value_counts = bin_series.value_counts(sort=False)
-    probabilities = value_counts / len(data)
-    
+    #for Laplace (Bayesian) smoothing
+    counts = value_counts.values
+    N = counts.sum()
+    K = len(counts)
+    smoothed_probs = (counts + alpha) / (N + alpha * K)
+    probabilities = pd.Series(smoothed_probs, index=value_counts.index)    
+   
     # 3. Καθαρισμός για υπολογισμούς
     probs_clean = probabilities[probabilities > 0]
     
-    # --- ΝΕΑ METRICS ---
-    mean_bin_probability = probs_clean.mean()
     # Τυπική απόκλιση των ποσοστών των κάδων
     std_bin_probability = probs_clean.std() 
     
@@ -29,13 +32,52 @@ def calculate_entropy(df, column='close', bins=10):
     
     print("--- FIXED BINS STATS ---")
     print(probabilities)
-    print(f"Mean Prob: {mean_bin_probability:.4f}")
     print(f"Std Dev of Probs: {std_bin_probability:.4f}") # <--- Αυτό ζήτησες
     
     return normalized_entropy, std_bin_probability
 
 
 
+
+
+def calculate_rolling_entropy(df, window=40, column='close', bins=10,alpha=0.5):
+    """
+    Rolling entropy + std(P_i) over window k.
+
+    Parameters:
+        df : DataFrame with Date + price column
+        k  : rolling window size
+        column : price column
+        bins : bin width (same as calculate_entropy)
+
+    Returns:
+        DataFrame with Date, entropy, stdv
+    """
+
+    results = []
+
+    for i in range(window, len(df) + 1):
+        window_df = df.iloc[i-window:i]
+
+        normalized_entropy, std_bin_probability = calculate_entropy(window_df,column=column,bins=bins,alpha=alpha)
+
+        results.append({
+            "Date": df.iloc[i-1]["Date"],
+            "entropy": normalized_entropy,
+            "stdv": std_bin_probability
+        })
+
+    ind_df = pd.DataFrame(results)
+
+    return ind_df
+
+
+
+
+
+
+
+#! probably prints wrong probabilities.
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
