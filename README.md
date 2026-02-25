@@ -19,7 +19,7 @@ A production-ready technical analysis framework for quantitative trading researc
 HyperTA is a comprehensive **signal generation engine** for technical analysis that combines:
 
 - **Multi-source data ingestion** from Yahoo Finance, custom providers, and more
-- **50+ technical indicators** across momentum, trend, and volatility categories  
+- **Multiple technical indicators** across momentum, trend, and volatility categories  
 - **Threshold-based signal detection** with 4 different trigger mechanisms
 - **Multi-dimensional hyperparameter optimization** (Grid, Random, Bayesian search)
 - **Composite signal generation** via powerful `mixThresholds()` logic
