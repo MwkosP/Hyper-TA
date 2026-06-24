@@ -11,7 +11,6 @@ Technical Analysis Signal Generator & Hyperparameter Optimization Framework.<br/
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-A production-ready technical analysis framework for quantitative trading research with advanced hyperparameter optimization capabilities.
 
 ---
 
@@ -21,7 +20,7 @@ HyperTA is a technical analysis optimization framework that autonomously explore
 
 Built for **quantitative researchers**, **algorithmic traders**, and **strategy developers**.
 
-This Library uses UV package manager to turn runtimes 10-100x times faster than with normal pip runtimes. 
+This Library uses UV package manager. 
 
 ---
 
