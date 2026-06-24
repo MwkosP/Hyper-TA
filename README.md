@@ -1,4 +1,4 @@
-![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/Hyperta.png)
+![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/hypertalogo.png)
 
 # HyperTA - Technical Analysis Signal Generator & Hyperparameter Optimization Framework
 
