@@ -1,8 +1,9 @@
+<div align="center">
+
+# HyperTA
+Technical Analysis Signal Generator & Hyperparameter Optimization Framework.<br/> <br/><br/>
 ![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/hypertalogo.png)
-
-# HyperTA - Technical Analysis Signal Generator & Hyperparameter Optimization Framework
-
-
+</div>
 
 
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue?logo=python)](https://www.python.org/)
