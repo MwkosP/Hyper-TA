@@ -23,75 +23,51 @@ Built for **quantitative researchers**, **algorithmic traders**, and **strategy 
 This Library uses UV package manager. 
 
 ---
-
 ##  Technical Indicators
 
-### Momentum / Oscillators
-- **RSI**, **StochRSI**, **ROC**, **Williams %R**, **ADX**, **MACD**
+The Framework Provides about 30 prebuilt Techncial Indicators but you are obviously free to implement your own via IndicatorConstructor Class.
 
-### Trend Indicators
-- **MA**, **EMA**, **EMA Ribbon**, **EMA Crossover**, **Ichimoku Cloud** 
-
-### Volatility / Range Indicators
-- **Bollinger Bands**, **ATR**, **Donchian Channels**
+Some examples being: <br/>
+- RSI, StochRSI, ROC, Williams %R, ADX, MACD, MA, EMA, EMA Ribbon, EMA Crossover, Ichimoku Cloud, Bollinger Bands, ATR, Donchian Channels
 
 ---
 
-##  Signal Engine
+##  Threshold Detection Logic
 
-### Threshold Detection Types
+The framework supports distinct signal Threshold trigger mechanisms. Obviously you can plug in and code your own custom ones via the ThresholdConstructor Class.
 
-The framework supports distinct signal Threshold trigger mechanisms:
+Examples being: <br/> <br/>
+#### 1. `crossUpThreshold`: Detects when an indicator crosses **above** a fixed numeric level.
 
-#### 1. `crossUpThreshold`
-Detects when an indicator crosses **above** a fixed numeric level.
-```python
-{
-    "type": "crossUpThreshold",
-    "indicator": "rsi",
-    "threshold": 30,
-    "period": 14
-}
-```
+#### 2. `crossUpLineThreshold`: Detects **fast vs. slow line crossovers** (e.g., MACD signal line, EMA crossovers).
 
-#### 2. `crossUpLineThreshold`
-Detects **fast vs. slow line crossovers** (e.g., MACD signal line, EMA crossovers).
-```python
-{
-    "type": "crossUpLineThreshold",
-    "indicator": "macd",
-    "fast_period": 12,
-    "slow_period": 26
-}
-```
+#### 3. `inRangeThreshold`: Triggers when an indicator enters a **predefined numerical band**.
 
-#### 3. `inRangeThreshold`
-Triggers when an indicator enters a **predefined numerical band**.
-```python
-{
-    "type": "inRangeThreshold",
-    "indicator": "rsi",
-    "lower": 30,
-    "upper": 70
-}
-```
+#### 4. `timeThreshold`: Requires an indicator to stay **above/below a level for N consecutive candles**.
 
-#### 4. `timeThreshold`
-Requires an indicator to stay **above/below a level for N consecutive candles**.
-```python
-{
-    "type": "timeThreshold",
-    "indicator": "rsi",
-    "threshold": 50,
-    "min_candles": 3
-}
-```
+
+---
+### Search Algorithms
+
+1. **Grid Search** - Exhaustive exploration of all parameter combinations
+2. **Random Search** - Randomly selects search spaces (mainly used for bigger samples)
+3. **Bayesian Optimization** - Probabilistic guided search for optimal parameters
+4. More to be added...
 
 ---
 
 ##  Hyperparameter Optimization
 
+This library was built while in mind of the fact that you can use 1 Indicator and Threshold logic OR Multiple Indicators and Threshold types at the same time + Their Combinations.
+
+### 1 Indicator and Threshold logic
+
+you basuially just try to find the otpimal hyperparameters for lets say RSI over a given timeseries and timeframe and a single threhsold logic lets say crossUp. Thats an optimization problem. RSI has only 1 hyperparameter called period. so you try to opimize period for this given dataset. Hyper-TA will search via the Algorithm set it posses and obviosuly the one you choose. You define what the Metric you are trying to opimize for (lets say Return) & what the search space is lets say [2-100] and it will see which period value or values give/s the biggest return/s! 
+
+
 ### Multi-Dimensional Search Spaces
+
+Same logic Applies here but you can also define multiple search spaces each containing different Metrics to opimize for, Threhsold types, Indicators to use and what combinatiosn of all of those to be combined with what to find complex Multi dimensional Relationships and connections!
 
 Define parameter ranges to explore all(or most - depending on search algorithm) combinations:
 
@@ -107,15 +83,11 @@ search_config = {
 }
 # Total combinations: 3 × 3 × 3 = 27 configurations
 ```
+Keep in mind combining them is gonna get you exponentially more Combinations so i highly recomend using Random or Bayesian Search on bigger Search configs
 
-### Search Algorithms
-
-1. **Grid Search** - Exhaustive exploration of all parameter combinations
-2. **Random Search** - Stochastic sampling for faster iteration
-3. **Bayesian Optimization** - Probabilistic guided search for optimal parameters
-4. More to be added...
 
 ![Search Visualization](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/search.png)
+
 
 ---
 
@@ -123,15 +95,10 @@ search_config = {
 
 The core innovation - **composite signal generation** via set logic:
 
-### How It Works
 
-1. **Expands** all parameter combinations from multi-dimensional configs
-2. **Runs** threshold detection for each sub-configuration
-3. **Collects** all signals into sets
-4. **Combines** signals across indicator blocks using:
+4. **Combines** signals using:
    - `UNION` (OR logic) - Any indicator triggers
    - `INTERSECTION` (AND logic) - All indicators must trigger
-   - `DIFFERENCE` - Exclude specific patterns
 
 ### Example: Multi-Indicator Strategy
 
@@ -157,16 +124,10 @@ src/ta/
 ├── ml/                      # Machine learning modules
 ├── tests/                   # Unit and integration tests
 ├──  utils/
-    ├── config.py           # Configuration management
-    ├── file_utils.py       # Data I/O operations
-    ├── helper.py           # General utilities
-    ├── logger.py           # Logging framework
-    └── plot_utils.py       # Chart generation
 ├── data/
-├── db/
 ├── backtesting/
-├── utils/
-└── strategies/
+├── strategies/
+└── utils/
 main.py
 app.py 
 ```
@@ -176,8 +137,7 @@ app.py
 ##  Tech Stack
 
 **Core Libraries:(Optimization,ML/AI,Backend)**
-- `numpy`, `pandas`, `matplotlib`, `plotly`, `yfinance`, `finta`, `scikit-learn`, `optuna`, `scipy`, `tensorflow` / `pytorch`, `FastAPI`, `SQLite`, `joblib`, `typer`, 
-- And many more..
+- `numpy`, `pandas`, `matplotlib`, `plotly`, `yfinance`, `finta`, `scikit-learn`, `optuna`, `scipy`, `tensorflow` / `pytorch`, `FastAPI`, `SQLite`, `joblib`, `typer`, And many more..
 
 ---
 ## With CLI support
@@ -195,29 +155,7 @@ app.py
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 ---
-##  Workflow
 
-1. **Data Ingestion** → Fetch historical data from Yahoo Finance / custom sources
-2. **Indicator Computation** → Calculate 50+ technical indicators
-3. **Search Space Definition** → Configure multi-dimensional parameter ranges
-4. **Optimization** → Run Grid/Random/Bayesian search algorithms
-5. **Signal Generation** → Use `mixThresholds()` to create composite signals
-6. **Statistical Filtering** → Filter by historical win rate, Sharpe ratio, etc.
-7. **Visualization** → Auto-generate PDF charts for each configuration
-8. **Model Training** *(Coming Soon)* → Train ML models on best signal sets
-
-```bash
-1. INDICATORS (RSI, MACD, etc.)
-         ↓
-2. THRESHOLD LOGIC (crossUp, inRange, etc.)
-         ↓
-3. mixThresholds() → GENERATES SIGNALS
-         ↓
-4. SEARCH ALGORITHMS (Grid/Random/Bayesian) ← ALREADY BUILT-IN!
-         ↓
-5. BACKTESTING ← YOU ONLY NEED THIS PART!
-```
----
 
 ##  Use Cases
 
@@ -231,33 +169,16 @@ app.py
 ---
 
 ## Quick Start
+Install uv (if you dont have it) ```curl -LsSf https://astral.sh/uv/install.sh | sh```
 ```bash
-# 1. Install uv (if you havent)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# 2. Clone and setup
+# Clone and setup
 git clone https://github.com/MwkosP/Hyper-TA.git
 cd Hyper-TA
 uv sync
 
-# 3. Run
+# Run
 uv run python main.py
 ```
-
-That's it!
----
-##  Roadmap
-
-- [x] Core threshold detection engine
-- [x] Multi-dimensional hyperparameter search
-- [x] Composite signal generation (`mixThresholds`)
-- [x] Statistical filtering framework
-- [x] Automated PDF charting
-- [ ] **ML model training on optimized signals**
-- [ ] **Real-time signal generation API**
-- [ ] **Portfolio-level optimization**
-- [ ] **Interactive web dashboard**
-- [ ] **Custom indicator plugin system**
 
 ---
 
