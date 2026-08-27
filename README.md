@@ -30,6 +30,34 @@ This library uses the [uv](https://github.com/astral-sh/uv) package manager.
 
 ---
 
+## Plots
+
+`HyperTA.Plots` renders price, indicators, signals, metrics, and market structure. Show by default; save only with `output=`.
+
+| API | What it draws |
+|-----|----------------|
+| `plotChart` | Price (candles / doji / line) |
+| `plotIndicator` | RSI, MACD, BB, Ichimoku, … (panel or overlay) |
+| `plotSignals` | Price + signal markers (+ optional indicator / threshold rules) |
+| `plotMetrics` | Distribution, entropy, derivatives, summary |
+| `plotStructure` | Swings, fib, S/R, channels, patterns, Wyckoff, … |
+
+### Indicators
+
+<img src="Assets/img/plot_rsi.png" alt="RSI panel" width="720"/>
+
+<img src="Assets/img/plot_macd.png" alt="MACD" width="720"/>
+
+<img src="Assets/img/plot_bbands.png" alt="Bollinger Bands overlay" width="720"/>
+
+### Price + signals
+
+<img src="Assets/img/plot_signals_rsi.png" alt="Price with RSI crossLevel signals" width="720"/>
+
+<img src="Assets/img/signals.png" alt="Price with signal markers" width="720"/>
+
+---
+
 ## Technical Indicators
 
 HyperTA ships ~15 prebuilt technical indicators (and you can add your own):
