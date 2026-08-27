@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ta"
+name = "HyperTA"
 version = "0.0.22"
 description = "Automatic technical analysis framework."
 readme = "README.md"
@@ -30,9 +30,6 @@ dependencies = [
     "deribit-api>=1.1.1",
     "requests>=2.31",
     "numpy>=1.26",
-    "fastapi>=0.111",
-    "uvicorn[standard]>=0.30",
-    "psutil>=5.9",
     "pycoingecko>=3.1.0",
     "joblib",
     "optuna",
@@ -46,6 +43,10 @@ dependencies = [
     "typer-ui>=0.1.2",
     "pdoc>=16.0.0",
     "vectorbt>=0.28.2",
+    "reportlab>=5.0.0",
+    "mplfinance>=0.12.10b0",
+    "pandas-ta-classic>=0.6.52",
+    "ta-patterns>=1.1.1",
 ]
 
 [project.optional-dependencies]
@@ -64,6 +65,7 @@ Issues = "https://github.com/MwkosP/Hyper-TA/issues"
 
 [project.scripts]
 ta = "cli:app"
+hyperta = "cli:app"
 
 [dependency-groups]
 dev = [
@@ -75,7 +77,12 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["HyperTA", "Configs"]
+
+[tool.pytest.ini_options]
+testpaths = ["Tests"]
+pythonpath = ["."]
+python_functions = ["test*"]
 
 [tool.ruff]
 line-length = 100
@@ -83,7 +90,7 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
-ignore = ["E501"]
+ignore = ["E501", "N802", "N803", "N806"]
 
 [tool.black]
 line-length = 100

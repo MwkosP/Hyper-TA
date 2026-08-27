@@ -1,7 +1,7 @@
 <div align="center">
 
 # HyperTA
-Technical Analysis Signal Generator & Hyperparameter Optimization Framework.<br/> <br/><br/>
+A Complete Technical Analysis Toolkit, Signal Generator & Hyperparameter Optimization Framework.<br/> <br/><br/>
 ![HyperTA](https://raw.githubusercontent.com/MwkosP/Hyper-TA/main/assets/img/hypertalogo.png)
 </div>
 
@@ -26,7 +26,7 @@ This Library uses UV package manager.
 ---
 ##  Technical Indicators
 
-The Framework Provides about 30 prebuilt Techncial Indicators but you are obviously free to implement your own via IndicatorConstructor Class.
+The Framework Provides about 15 prebuilt Techncial Indicators but you are obviously free to implement your own via IndicatorConstructor Class.
 
 Some examples being: <br/>
 - RSI, StochRSI, ROC, Williams %R, ADX, MACD, MA, EMA, EMA Ribbon, EMA Crossover, Ichimoku Cloud, Bollinger Bands, ATR, Donchian Channels

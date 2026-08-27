@@ -78,6 +78,7 @@ Desktop.ini
 *.pdf
 output/
 results/
+Cache/
 
 
 # Images (with exceptions for repo assets)
@@ -90,8 +91,8 @@ results/
 !Hyperta.png
 !docs/**/*.png
 !docs/**/*.jpg
-!assets/**/*.png
-!assets/**/*.jpg
+!Assets/**/*.png
+!Assets/**/*.jpg
 
 # Temporary files
 *.tmp

@@ -1437,6 +1437,101 @@ wheels = [
 ]
 
 [[package]]
+name = "hyperta"
+version = "0.0.22"
+source = { editable = "." }
+dependencies = [
+    { name = "antropy" },
+    { name = "ccxt" },
+    { name = "deribit-api" },
+    { name = "finta" },
+    { name = "joblib" },
+    { name = "matplotlib" },
+    { name = "mplfinance" },
+    { name = "numba" },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "optuna" },
+    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "pandas", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pandas-ta-classic" },
+    { name = "pdoc" },
+    { name = "plotly" },
+    { name = "polars" },
+    { name = "pyarrow" },
+    { name = "pycoingecko" },
+    { name = "reportlab" },
+    { name = "requests" },
+    { name = "ta-patterns" },
+    { name = "typer" },
+    { name = "typer-ui" },
+    { name = "vectorbt", version = "0.28.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "vectorbt", version = "0.28.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "yfinance" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "black" },
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "black" },
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "antropy", specifier = ">=0.1.6" },
+    { name = "black", marker = "extra == 'dev'", specifier = ">=23.0" },
+    { name = "ccxt", specifier = ">=4.5.36" },
+    { name = "deribit-api", specifier = ">=1.1.1" },
+    { name = "finta", specifier = ">=1.3" },
+    { name = "joblib" },
+    { name = "matplotlib", specifier = ">=3.7" },
+    { name = "mplfinance", specifier = ">=0.12.10b0" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0" },
+    { name = "numba", specifier = ">=0.58.0" },
+    { name = "numpy", specifier = ">=1.26" },
+    { name = "optuna" },
+    { name = "pandas", specifier = ">=1.5" },
+    { name = "pandas-ta-classic", specifier = ">=0.6.52" },
+    { name = "pdoc", specifier = ">=16.0.0" },
+    { name = "plotly", specifier = ">=5.0.0" },
+    { name = "polars" },
+    { name = "pyarrow" },
+    { name = "pycoingecko", specifier = ">=3.1.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0" },
+    { name = "reportlab", specifier = ">=5.0.0" },
+    { name = "requests", specifier = ">=2.31" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1" },
+    { name = "ta-patterns", specifier = ">=1.1.1" },
+    { name = "typer", specifier = ">=0.21.1" },
+    { name = "typer-ui", specifier = ">=0.1.2" },
+    { name = "vectorbt", specifier = ">=0.28.2" },
+    { name = "yfinance", specifier = ">=0.2.40" },
+]
+provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "black", specifier = ">=23.0" },
+    { name = "mypy", specifier = ">=1.0" },
+    { name = "pytest", specifier = ">=7.0" },
+    { name = "pytest-cov", specifier = ">=4.0" },
+    { name = "ruff", specifier = ">=0.1" },
+]
+
+[[package]]
 name = "idna"
 version = "3.11"
 source = { registry = "https://pypi.org/simple" }
@@ -2033,6 +2128,20 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d6/54/cfe61301667036ec958cb99bd3efefba235e65cdeb9c84d24a8293ba1d90/mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba", size = 8729, upload-time = "2022-08-14T12:40:10.846Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8", size = 9979, upload-time = "2022-08-14T12:40:09.779Z" },
+]
+
+[[package]]
+name = "mplfinance"
+version = "0.12.10b0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "pandas", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6c/a9/34e7998d02fb58fae04f750444ce4e95e75f3a08dad17fb2d32098a97834/mplfinance-0.12.10b0.tar.gz", hash = "sha256:7da150b5851aa5119ad6e06b55e48338b619bb6773f1b85df5de67a5ffd917bf", size = 70117, upload-time = "2023-08-02T15:13:53.829Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d7/d9/31c436ea7673c21a5bf3fc747bc7f63377582dfe845c3004d3e46f9deee0/mplfinance-0.12.10b0-py3-none-any.whl", hash = "sha256:76d3b095f05ff35de730751649de063bea4064d0c49b21b6182c82997a7f52bb", size = 75016, upload-time = "2023-08-02T15:13:52.022Z" },
 ]
 
 [[package]]
@@ -2704,6 +2813,20 @@ wheels = [
 ]
 
 [[package]]
+name = "pandas-ta-classic"
+version = "0.6.52"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "pandas", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/88/439fb35fe42bf458623e21e4e7bc62408e4f0cd4cd9ac387806510db2e01/pandas_ta_classic-0.6.52-py3-none-any.whl", hash = "sha256:53956dde8969b8a1ac1cda7ee514c74b4af65d802387353814814ac2e1d949e2", size = 396905, upload-time = "2026-06-24T15:23:48.248Z" },
+]
+
+[[package]]
 name = "parso"
 version = "0.8.5"
 source = { registry = "https://pypi.org/simple" }
@@ -3053,34 +3176,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/c5/f5/65d838092fd01c44d16037953fd4c2cc851e783de9b8f02b27ec4ffd906f/protobuf-6.33.5-cp39-abi3-manylinux2014_s390x.whl", hash = "sha256:8afa18e1d6d20af15b417e728e9f60f3aa108ee76f23c3b2c07a2c3b546d3afd", size = 339411, upload-time = "2026-01-29T21:51:27.446Z" },
     { url = "https://files.pythonhosted.org/packages/9b/53/a9443aa3ca9ba8724fdfa02dd1887c1bcd8e89556b715cfbacca6b63dbec/protobuf-6.33.5-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:cbf16ba3350fb7b889fca858fb215967792dc125b35c7976ca4818bee3521cf0", size = 323465, upload-time = "2026-01-29T21:51:28.925Z" },
     { url = "https://files.pythonhosted.org/packages/57/bf/2086963c69bdac3d7cff1cc7ff79b8ce5ea0bec6797a017e1be338a46248/protobuf-6.33.5-py3-none-any.whl", hash = "sha256:69915a973dd0f60f31a08b8318b73eab2bd6a392c79184b3612226b0a3f8ec02", size = 170687, upload-time = "2026-01-29T21:51:32.557Z" },
-]
-
-[[package]]
-name = "psutil"
-version = "7.2.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/aa/c6/d1ddf4abb55e93cebc4f2ed8b5d6dbad109ecb8d63748dd2b20ab5e57ebe/psutil-7.2.2.tar.gz", hash = "sha256:0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372", size = 493740, upload-time = "2026-01-28T18:14:54.428Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/51/08/510cbdb69c25a96f4ae523f733cdc963ae654904e8db864c07585ef99875/psutil-7.2.2-cp313-cp313t-macosx_10_13_x86_64.whl", hash = "sha256:2edccc433cbfa046b980b0df0171cd25bcaeb3a68fe9022db0979e7aa74a826b", size = 130595, upload-time = "2026-01-28T18:14:57.293Z" },
-    { url = "https://files.pythonhosted.org/packages/d6/f5/97baea3fe7a5a9af7436301f85490905379b1c6f2dd51fe3ecf24b4c5fbf/psutil-7.2.2-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:e78c8603dcd9a04c7364f1a3e670cea95d51ee865e4efb3556a3a63adef958ea", size = 131082, upload-time = "2026-01-28T18:14:59.732Z" },
-    { url = "https://files.pythonhosted.org/packages/37/d6/246513fbf9fa174af531f28412297dd05241d97a75911ac8febefa1a53c6/psutil-7.2.2-cp313-cp313t-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:1a571f2330c966c62aeda00dd24620425d4b0cc86881c89861fbc04549e5dc63", size = 181476, upload-time = "2026-01-28T18:15:01.884Z" },
-    { url = "https://files.pythonhosted.org/packages/b8/b5/9182c9af3836cca61696dabe4fd1304e17bc56cb62f17439e1154f225dd3/psutil-7.2.2-cp313-cp313t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:917e891983ca3c1887b4ef36447b1e0873e70c933afc831c6b6da078ba474312", size = 184062, upload-time = "2026-01-28T18:15:04.436Z" },
-    { url = "https://files.pythonhosted.org/packages/16/ba/0756dca669f5a9300d0cbcbfae9a4c30e446dfc7440ffe43ded5724bfd93/psutil-7.2.2-cp313-cp313t-win_amd64.whl", hash = "sha256:ab486563df44c17f5173621c7b198955bd6b613fb87c71c161f827d3fb149a9b", size = 139893, upload-time = "2026-01-28T18:15:06.378Z" },
-    { url = "https://files.pythonhosted.org/packages/1c/61/8fa0e26f33623b49949346de05ec1ddaad02ed8ba64af45f40a147dbfa97/psutil-7.2.2-cp313-cp313t-win_arm64.whl", hash = "sha256:ae0aefdd8796a7737eccea863f80f81e468a1e4cf14d926bd9b6f5f2d5f90ca9", size = 135589, upload-time = "2026-01-28T18:15:08.03Z" },
-    { url = "https://files.pythonhosted.org/packages/81/69/ef179ab5ca24f32acc1dac0c247fd6a13b501fd5534dbae0e05a1c48b66d/psutil-7.2.2-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:eed63d3b4d62449571547b60578c5b2c4bcccc5387148db46e0c2313dad0ee00", size = 130664, upload-time = "2026-01-28T18:15:09.469Z" },
-    { url = "https://files.pythonhosted.org/packages/7b/64/665248b557a236d3fa9efc378d60d95ef56dd0a490c2cd37dafc7660d4a9/psutil-7.2.2-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:7b6d09433a10592ce39b13d7be5a54fbac1d1228ed29abc880fb23df7cb694c9", size = 131087, upload-time = "2026-01-28T18:15:11.724Z" },
-    { url = "https://files.pythonhosted.org/packages/d5/2e/e6782744700d6759ebce3043dcfa661fb61e2fb752b91cdeae9af12c2178/psutil-7.2.2-cp314-cp314t-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:1fa4ecf83bcdf6e6c8f4449aff98eefb5d0604bf88cb883d7da3d8d2d909546a", size = 182383, upload-time = "2026-01-28T18:15:13.445Z" },
-    { url = "https://files.pythonhosted.org/packages/57/49/0a41cefd10cb7505cdc04dab3eacf24c0c2cb158a998b8c7b1d27ee2c1f5/psutil-7.2.2-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e452c464a02e7dc7822a05d25db4cde564444a67e58539a00f929c51eddda0cf", size = 185210, upload-time = "2026-01-28T18:15:16.002Z" },
-    { url = "https://files.pythonhosted.org/packages/dd/2c/ff9bfb544f283ba5f83ba725a3c5fec6d6b10b8f27ac1dc641c473dc390d/psutil-7.2.2-cp314-cp314t-win_amd64.whl", hash = "sha256:c7663d4e37f13e884d13994247449e9f8f574bc4655d509c3b95e9ec9e2b9dc1", size = 141228, upload-time = "2026-01-28T18:15:18.385Z" },
-    { url = "https://files.pythonhosted.org/packages/f2/fc/f8d9c31db14fcec13748d373e668bc3bed94d9077dbc17fb0eebc073233c/psutil-7.2.2-cp314-cp314t-win_arm64.whl", hash = "sha256:11fe5a4f613759764e79c65cf11ebdf26e33d6dd34336f8a337aa2996d71c841", size = 136284, upload-time = "2026-01-28T18:15:19.912Z" },
-    { url = "https://files.pythonhosted.org/packages/e7/36/5ee6e05c9bd427237b11b3937ad82bb8ad2752d72c6969314590dd0c2f6e/psutil-7.2.2-cp36-abi3-macosx_10_9_x86_64.whl", hash = "sha256:ed0cace939114f62738d808fdcecd4c869222507e266e574799e9c0faa17d486", size = 129090, upload-time = "2026-01-28T18:15:22.168Z" },
-    { url = "https://files.pythonhosted.org/packages/80/c4/f5af4c1ca8c1eeb2e92ccca14ce8effdeec651d5ab6053c589b074eda6e1/psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl", hash = "sha256:1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979", size = 129859, upload-time = "2026-01-28T18:15:23.795Z" },
-    { url = "https://files.pythonhosted.org/packages/b5/70/5d8df3b09e25bce090399cf48e452d25c935ab72dad19406c77f4e828045/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9", size = 155560, upload-time = "2026-01-28T18:15:25.976Z" },
-    { url = "https://files.pythonhosted.org/packages/63/65/37648c0c158dc222aba51c089eb3bdfa238e621674dc42d48706e639204f/psutil-7.2.2-cp36-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:b0726cecd84f9474419d67252add4ac0cd9811b04d61123054b9fb6f57df6e9e", size = 156997, upload-time = "2026-01-28T18:15:27.794Z" },
-    { url = "https://files.pythonhosted.org/packages/8e/13/125093eadae863ce03c6ffdbae9929430d116a246ef69866dad94da3bfbc/psutil-7.2.2-cp36-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:fd04ef36b4a6d599bbdb225dd1d3f51e00105f6d48a28f006da7f9822f2606d8", size = 148972, upload-time = "2026-01-28T18:15:29.342Z" },
-    { url = "https://files.pythonhosted.org/packages/04/78/0acd37ca84ce3ddffaa92ef0f571e073faa6d8ff1f0559ab1272188ea2be/psutil-7.2.2-cp36-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:b58fabe35e80b264a4e3bb23e6b96f9e45a3df7fb7eed419ac0e5947c61e47cc", size = 148266, upload-time = "2026-01-28T18:15:31.597Z" },
-    { url = "https://files.pythonhosted.org/packages/b4/90/e2159492b5426be0c1fef7acba807a03511f97c5f86b3caeda6ad92351a7/psutil-7.2.2-cp37-abi3-win_amd64.whl", hash = "sha256:eb7e81434c8d223ec4a219b5fc1c47d0417b12be7ea866e24fb5ad6e84b3d988", size = 137737, upload-time = "2026-01-28T18:15:33.849Z" },
-    { url = "https://files.pythonhosted.org/packages/8c/c7/7bb2e321574b10df20cbde462a94e2b71d05f9bbda251ef27d104668306a/psutil-7.2.2-cp37-abi3-win_arm64.whl", hash = "sha256:8c233660f575a5a89e6d4cb65d9f938126312bca76d8fe087b947b3a1aaac9ee", size = 134617, upload-time = "2026-01-28T18:15:36.514Z" },
 ]
 
 [[package]]
@@ -3773,6 +3868,19 @@ wheels = [
 ]
 
 [[package]]
+name = "reportlab"
+version = "5.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "charset-normalizer" },
+    { name = "pillow" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/41/d6/4b7b0cf56880eb96533e607967be6a939e344675601e033d113a0bfa1f4e/reportlab-5.0.0.tar.gz", hash = "sha256:e4494a0c6623ae213bb856fba523171b2b54a7bf629fda02d5e525a7b899a784", size = 3701928, upload-time = "2026-06-18T11:34:31.145Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a3/07/70085c17a369605f15e301d10ab902115019b1126c7253d964afc230c7d6/reportlab-5.0.0-py3-none-any.whl", hash = "sha256:9d5a3affa84919e1111ede580031266a570e93b1ce388219621347965ff1d93c", size = 1956710, upload-time = "2026-06-18T11:34:29.07Z" },
+]
+
+[[package]]
 name = "requests"
 version = "2.32.5"
 source = { registry = "https://pypi.org/simple" }
@@ -4209,96 +4317,16 @@ wheels = [
 ]
 
 [[package]]
-name = "ta"
-version = "0.0.22"
-source = { editable = "." }
+name = "ta-patterns"
+version = "1.1.1"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "antropy" },
-    { name = "ccxt" },
-    { name = "deribit-api" },
-    { name = "fastapi" },
-    { name = "finta" },
-    { name = "joblib" },
-    { name = "matplotlib" },
-    { name = "numba" },
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "optuna" },
-    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "pandas", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "pdoc" },
-    { name = "plotly" },
-    { name = "polars" },
-    { name = "psutil" },
-    { name = "pyarrow" },
-    { name = "pycoingecko" },
-    { name = "requests" },
-    { name = "typer" },
-    { name = "typer-ui" },
-    { name = "uvicorn", extra = ["standard"] },
-    { name = "vectorbt", version = "0.28.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "vectorbt", version = "0.28.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "yfinance" },
 ]
-
-[package.optional-dependencies]
-dev = [
-    { name = "black" },
-    { name = "mypy" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "ruff" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "black" },
-    { name = "mypy" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "antropy", specifier = ">=0.1.6" },
-    { name = "black", marker = "extra == 'dev'", specifier = ">=23.0" },
-    { name = "ccxt", specifier = ">=4.5.36" },
-    { name = "deribit-api", specifier = ">=1.1.1" },
-    { name = "fastapi", specifier = ">=0.111" },
-    { name = "finta", specifier = ">=1.3" },
-    { name = "joblib" },
-    { name = "matplotlib", specifier = ">=3.7" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0" },
-    { name = "numba", specifier = ">=0.58.0" },
-    { name = "numpy", specifier = ">=1.26" },
-    { name = "optuna" },
-    { name = "pandas", specifier = ">=1.5" },
-    { name = "pdoc", specifier = ">=16.0.0" },
-    { name = "plotly", specifier = ">=5.0.0" },
-    { name = "polars" },
-    { name = "psutil", specifier = ">=5.9" },
-    { name = "pyarrow" },
-    { name = "pycoingecko", specifier = ">=3.1.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0" },
-    { name = "requests", specifier = ">=2.31" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1" },
-    { name = "typer", specifier = ">=0.21.1" },
-    { name = "typer-ui", specifier = ">=0.1.2" },
-    { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
-    { name = "vectorbt", specifier = ">=0.28.2" },
-    { name = "yfinance", specifier = ">=0.2.40" },
-]
-provides-extras = ["dev"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "black", specifier = ">=23.0" },
-    { name = "mypy", specifier = ">=1.0" },
-    { name = "pytest", specifier = ">=7.0" },
-    { name = "pytest-cov", specifier = ">=4.0" },
-    { name = "ruff", specifier = ">=0.1" },
+sdist = { url = "https://files.pythonhosted.org/packages/9e/a9/d7d5d0770e3faab465be9008a367ffe454c7f75f7b9146fda5813538261e/ta_patterns-1.1.1.tar.gz", hash = "sha256:f558c394e1d7325445fd3b1ae0aad34baaa75e0ba3155324a271229486061e5c", size = 69896, upload-time = "2026-06-09T20:49:56.482Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5a/5b/27728b077daeb0f7e7eee19723fcdb8fbb14b17e1e53d4a6602e1c82e36f/ta_patterns-1.1.1-py3-none-any.whl", hash = "sha256:dbf5790f9947f90aa39346829a793703422edd1c1d6b4ae8f12a4f9fea41d99f", size = 71386, upload-time = "2026-06-09T20:49:55.559Z" },
 ]
 
 [[package]]

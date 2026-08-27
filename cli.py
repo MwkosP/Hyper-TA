@@ -13,11 +13,11 @@ import ccxt
 import time
 from typer_ui import TyperUI
 
-import src.ta as ta   # Import your package
+import HyperTA as ta   # Import your package
 
 
-# Add the 'src' directory to the path so we can find 'ta'
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+# Ensure project root is on the path when running as a script
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 
 # Initialize the Typer app
@@ -60,11 +60,11 @@ def docs():
 
     # Use a fixed port or your preferred logic
     port = 8080
-    url = f"http://localhost:{port}/ta.html"
+    url = f"http://localhost:{port}/HyperTA.html"
 
     # Define a small function to open the browser after a short delay
     # This gives the server time to start up.
-    def open_browser():
+    def openBrowser():
         time.sleep(1.5)  # Wait for server to initialize
         webbrowser.open(url)
 
@@ -72,18 +72,16 @@ def docs():
     console.print(f"📖 [cyan]Opening browser at {url}[/cyan]")
 
     # Start the browser-opener in a separate thread
-    threading.Thread(target=open_browser, daemon=True).start()
+    threading.Thread(target=openBrowser, daemon=True).start()
 
     # Run pdoc server
     try:
-        # Set PYTHONPATH so pdoc finds your 'src' folder
         env = os.environ.copy()
-        env["PYTHONPATH"] = f"src{os.pathsep}{env.get('PYTHONPATH', '')}"
-        
+        env["PYTHONPATH"] = f"{os.path.dirname(__file__)}{os.pathsep}{env.get('PYTHONPATH', '')}"
         # Execute pdoc without the --browse flag
         subprocess.run([
             sys.executable, "-m", "pdoc", 
-            "ta", 
+            "HyperTA", 
             "--port", str(port)
         ], env=env)
     except KeyboardInterrupt:
@@ -167,7 +165,7 @@ def health():
     table.add_row("Env File", "✅" if env_exists else "❌", ".env found" if env_exists else "Missing .env")
     
     # Check for Data folder
-    data_dir = "src/ta/data"
+    data_dir = "HyperTA/Providers"
     data_exists = os.path.exists(data_dir)
     table.add_row("Data Dir", "✅" if data_exists else "⚠️", "Ready" if data_exists else "Dir missing")
 
@@ -230,13 +228,13 @@ def logs(
     """
     View and monitor project logs.
     """
-    log_file = "src.ta.log" # Or wherever your logger saves files
+    log_file = "HyperTA.log" # Or wherever your logger saves files
 
     if not os.path.exists(log_file):
         console.print(f"[bold red]Error:[/bold red] Log file '{log_file}' not found.")
         return
 
-    def print_logs(count):
+    def printLogs(count):
         with open(log_file, "r") as f:
             # Get the last N lines
             content = f.readlines()
@@ -251,7 +249,7 @@ def logs(
                     console.print(line.strip())
 
     console.print(f"📄 [bold]Showing last {lines} lines of {log_file}:[/bold]\n")
-    print_logs(lines)
+    printLogs(lines)
 
     if follow:
         console.print("\n👀 [yellow]Watching for new entries... (Ctrl+C to stop)[/yellow]")
@@ -275,11 +273,11 @@ def logs(
 
 
 @app.command(name="list-functions")
-def list_functions(
-    module_name: str = typer.Option("ta", "--module", "-m", help="Sub-module to scan")
+def listFunctions(
+    module_name: str = typer.Option("HyperTA", "--module", "-m", help="Sub-module to scan")
 ):
     """
-    List all functions within the ta package.
+    List all functions within the HyperTA package.
     """
     table = Table(title=f"🔍 Functions in '{module_name}'")
     table.add_column("Module", style="cyan")
@@ -302,7 +300,7 @@ def list_functions(
                 
         console.print(table)
     except ModuleNotFoundError:
-        console.print(f"[red]Error:[/red] Could not find module '{module_name}'. Check your src folder.")
+        console.print(f"[red]Error:[/red] Could not find module '{module_name}'. Check your HyperTA package.")
 
 
 
@@ -310,15 +308,15 @@ def list_functions(
 #?==============================================================
 #?==============================================================    
 THRESHOLD_REGISTRY = {
-    "crossUpThreshold": { "desc": "Triggers when crosses specified price."},
-    "crossUpLineThreshold": { "desc": "Triggers when crosses specified Line."},
-    "inRangeThreshold": { "desc": "Triggers when enters specified range."},
-    "timeThreshold": { "desc": "Triggers when stays >= than specified time."},
+    "crossLevel": { "desc": "Triggers when crosses specified price."},
+    "crossLines": { "desc": "Triggers when crosses specified Line."},
+    "inRange": { "desc": "Triggers when enters specified range."},
+    "holdLevel": { "desc": "Triggers when stays >= than specified time."},
     "mixThresholds": { "desc": "Combines Multiple Thresholds Logic/Signals into new Signals."},
 }    
 
 @app.command(name="list-thresholds")
-def list_thresholds():
+def listThresholds():
     """
     List all available Threshold and Mixed Threshold strategies.
     """
@@ -333,7 +331,7 @@ def list_thresholds():
 #?==============================================================
 #?==============================================================
 @app.command(name="list-strategies")
-def list_strategies():
+def listStrategies():
     """
     List all specific Threshold and Mixed Threshold strategy types.
     """
@@ -352,7 +350,7 @@ def list_strategies():
         table.add_row(name, desc)
 
     # Automatically scan for your Mixed Threshold files too
-    strat_path = "src/ta/strategies"
+    strat_path = "HyperTA/Strategies"
     if os.path.exists(strat_path):
         files = [f.replace(".py", "") for f in os.listdir(strat_path) 
                  if "mix" in f.lower() and f.endswith(".py")]
